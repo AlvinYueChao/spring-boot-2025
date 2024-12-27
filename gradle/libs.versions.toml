@@ -1,0 +1,41 @@
+[versions]
+# utils
+lombok-version = "1.18.36"
+spring-boot-version = "3.4.1"
+mybatis-spring-boot-version = "3.0.4"
+spring-dependency-management-version = "1.1.7"
+junit5-version = "5.11.4"
+mysql-version = "8.2.0"
+flyway-version = "9.9.0"
+
+[libraries]
+# bom
+junit5-bom = { module = "org.junit:junit-bom", version.ref = "junit5-version"}
+
+# basic
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version"}
+
+# spring-boot
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot-version"}
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring-boot-version"}
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot-version"}
+spring-boot-starter-mybatis = { module = "org.mybatis.spring.boot:mybatis-spring-boot-starter", version.ref = "mybatis-spring-boot-version"}
+spring-boot-starter-loggging = { module = "org.springframework.boot:spring-boot-starter-logging", version.ref = "spring-boot-version"}
+spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc", version.ref = "spring-boot-version"}
+
+# mysql
+mysql-connector-java = { module = "com.mysql:mysql-connector-j", version.ref = "mysql-version"}
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-version"}
+
+# test
+junit5-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5-version"}
+
+# fix versions to avoid VA issues
+logback-classic = { module = "ch.qos.logback:logback-classic", version = "1.5.15"}
+
+[bundles]
+mysql-flyway-integration = ["mysql-connector-java", "flyway-core", "spring-boot-starter-jdbc"]
+
+[plugins]
+spring-boot-gradle-plugin = { id = "org.springframework.boot", version.ref = "spring-boot-version"}
+spring-dependency-management-gradle-plugin = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management-version"}

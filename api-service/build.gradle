@@ -1,0 +1,12 @@
+dependencies {
+    implementation libs.spring.boot.starter.web
+    implementation libs.spring.boot.starter.actuator
+    implementation libs.spring.boot.starter.loggging
+
+    implementation libs.spring.boot.starter.mybatis
+
+    testImplementation libs.spring.boot.starter.test
+
+    // fix VA issues
+    implementation libs.logback.classic
+}

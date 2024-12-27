@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    alias libs.plugins.spring.boot.gradle.plugin
+    alias libs.plugins.spring.dependency.management.gradle.plugin
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    maven {
+        url = uri('https://maven.aliyun.com/repository/central')
+    }
+    maven {
+        url = uri('https://maven.aliyun.com/repository/public')
+    }
+}
+
+subprojects {
+    plugins.apply('java')
+
+    repositories {
+        maven {
+            url = uri('https://maven.aliyun.com/repository/central')
+        }
+        maven {
+            url = uri('https://maven.aliyun.com/repository/public')
+        }
+    }
+
+    dependencies {
+        implementation libs.lombok
+        annotationProcessor libs.lombok
+        testImplementation libs.lombok
+        testAnnotationProcessor libs.lombok
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
+}
+
+tasks.bootJar {
+    enabled = false
+}
