@@ -6,7 +6,7 @@ mybatis-spring-boot-version = "3.0.4"
 spring-dependency-management-version = "1.1.7"
 junit5-version = "5.11.4"
 mysql-version = "8.2.0"
-flyway-version = "9.9.0"
+flyway-version = "11.1.0"
 
 [libraries]
 # bom

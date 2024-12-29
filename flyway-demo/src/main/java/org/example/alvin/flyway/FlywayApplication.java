@@ -1,11 +1,11 @@
-package org.example.alvin.flyway.plus;
+package org.example.alvin.flyway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FlywayPlusApplication {
+public class FlywayApplication {
   public static void main(String[] args) {
-    SpringApplication.run(FlywayPlusApplication.class, args);
+    SpringApplication.run(FlywayApplication.class, args);
   }
 }

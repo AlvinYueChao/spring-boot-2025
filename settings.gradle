@@ -8,6 +8,6 @@ pluginManagement {
 
 rootProject.name = 'spring-boot-2025'
 
-include 'flyway-plus'
+include 'flyway-demo'
 include 'api-service'
 
