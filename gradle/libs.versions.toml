@@ -5,8 +5,10 @@ spring-boot-version = "3.4.1"
 mybatis-spring-boot-version = "3.0.4"
 spring-dependency-management-version = "1.1.7"
 junit5-version = "5.11.4"
-mysql-version = "8.2.0"
+mysql-version = "9.1.0"
 flyway-version = "11.1.0"
+slf4j-version = "2.0.16"
+mssql-jdbc-version = "12.8.1.jre11"
 
 [libraries]
 # bom
@@ -23,9 +25,16 @@ spring-boot-starter-mybatis = { module = "org.mybatis.spring.boot:mybatis-spring
 spring-boot-starter-loggging = { module = "org.springframework.boot:spring-boot-starter-logging", version.ref = "spring-boot-version"}
 spring-boot-starter-jdbc = { module = "org.springframework.boot:spring-boot-starter-jdbc", version.ref = "spring-boot-version"}
 
-# mysql
+# logging
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j-version"}
+
+# db
 mysql-connector-java = { module = "com.mysql:mysql-connector-j", version.ref = "mysql-version"}
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-version"}
+flyway-mysql = { module = "org.flywaydb:flyway-mysql", version.ref = "flyway-version"}
+mssql-jdbc = { module = "com.microsoft.sqlserver:mssql-jdbc", version.ref = "mssql-jdbc-version"}
+flyway-sqlserver = { module = "org.flywaydb:flyway-sqlserver", version.ref = "flyway-version"}
+
 
 # test
 junit5-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit5-version"}
@@ -34,7 +43,8 @@ junit5-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "ju
 logback-classic = { module = "ch.qos.logback:logback-classic", version = "1.5.15"}
 
 [bundles]
-mysql-flyway-integration = ["mysql-connector-java", "flyway-core", "spring-boot-starter-jdbc"]
+mysql-flyway-integration = ["flyway-mysql", 'mysql-connector-java', "spring-boot-starter-jdbc"]
+sqlserver-flyway-integration = ["flyway-sqlserver", 'mssql-jdbc', "spring-boot-starter-jdbc"]
 
 [plugins]
 spring-boot-gradle-plugin = { id = "org.springframework.boot", version.ref = "spring-boot-version"}

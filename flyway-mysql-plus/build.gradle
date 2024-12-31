@@ -1,0 +1,5 @@
+dependencies {
+    implementation project(':flyway-core-plus')
+
+    implementation libs.flyway.mysql
+}

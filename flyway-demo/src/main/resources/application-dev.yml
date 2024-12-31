@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    # MySQL
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=UTC
+    # Sql Server
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;databaseName=test;trustServerCertificate=true
+    username: alvin
+    password: ${database_mana}
+    hikari:
+      pool-name: HikariCP
+      auto-commit: false
+      minimum-idle: 5
+      maximum-pool-size: 30

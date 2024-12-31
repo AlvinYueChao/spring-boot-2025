@@ -1,6 +1,14 @@
 dependencies {
-    implementation libs.bundles.mysql.flyway.integration
+//    implementation libs.bundles.mysql.flyway.integration
+//    implementation libs.bundles.sqlserver.flyway.integration
+
+    implementation project(':flyway-core-plus')
+    implementation libs.flyway.mysql
+    implementation libs.mysql.connector.java
+    implementation libs.spring.boot.starter.jdbc
+
     implementation libs.spring.boot.starter.loggging
+    implementation libs.slf4j.api
 
     // fix VA issues
     implementation libs.logback.classic
