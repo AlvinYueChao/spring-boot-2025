@@ -4,6 +4,9 @@ spring:
   profiles:
     active: dev
   flyway:
+    extension:
+      jira:
+        enabled: true
     enabled: true
     locations: classpath:db/migration
 

@@ -17,8 +17,12 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 
 @Slf4j
+@Component
+@ConditionalOnProperty(name = "spring.flyway.extension.jira.enabled", havingValue = "true")
 public class JiraInfoCollectCallback extends BaseCallback {
 
   @Override

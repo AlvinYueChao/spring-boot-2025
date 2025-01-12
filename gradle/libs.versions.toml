@@ -18,6 +18,7 @@ junit5-bom = { module = "org.junit:junit-bom", version.ref = "junit5-version"}
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version"}
 
 # spring-boot
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot-version"}
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot-version"}
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring-boot-version"}
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot-version"}

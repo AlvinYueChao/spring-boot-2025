@@ -13,9 +13,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.stereotype.Component;
 
 @Slf4j
-public class JiraInfoUpdateCallback extends BaseCallback {
+@Component
+@ConditionalOnClass(name = "com.microsoft.sqlserver.jdbc.SQLServerDriver")
+@ConditionalOnProperty(name = "spring.flyway.extension.jira.enabled", havingValue = "true")
+public class MSSQLJiraInfoUpdateCallback extends BaseCallback {
+
+  private static final String UPDATE_SQL = "UPDATE %s.%s.%s SET jira = ?, jira_sprint = ?, author = ? WHERE checksum = ?";
 
   @Override
   public void handle(Event event, Context context) {
@@ -30,8 +38,7 @@ public class JiraInfoUpdateCallback extends BaseCallback {
       String catalog = connection.getCatalog();
       String schema = connection.getSchema();
       String table = configuration.getTable();
-      String updateSql = "UPDATE " + catalog + "." + schema + "." + table + " SET jira = ?, jira_sprint = ?, author = ? WHERE checksum = ?";
-      connection.setAutoCommit(false);
+      String updateSql = String.format(UPDATE_SQL, catalog, schema, table);
       PreparedStatement statement = connection.prepareStatement(updateSql);
       appliedMigrations.forEach((checksum, jiraMigration) -> {
         try {
