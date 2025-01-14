@@ -31,7 +31,7 @@ public class JiraInfoCollectCallback extends BaseCallback {
     MigrationInfo migrationInfo = context.getMigrationInfo();
 
     Map<String, String> parsed = new HashMap<>();
-    Pattern pattern = Pattern.compile("@([\\w|_]+):\\s*(.*?)(?=\\n|$)");
+    Pattern pattern = Pattern.compile("@(.*):\\s*(.*)(?=\\n|$)");
 
     String physicalLocation = migrationInfo.getPhysicalLocation();
 
@@ -41,7 +41,9 @@ public class JiraInfoCollectCallback extends BaseCallback {
         log.info("JiraMigrationCallback: line: {}", line);
         Matcher matcher = pattern.matcher(line);
         while (matcher.find()) {
-          parsed.put(matcher.group(1), matcher.group(2));
+          String jiraFieldNameWithRestriction = matcher.group(1);
+          String jiraFieldName = jiraFieldNameWithRestriction.replace("(mandatory)", "").trim();
+          parsed.put(jiraFieldName, matcher.group(2));
         }
       }
     } catch (IOException e) {
