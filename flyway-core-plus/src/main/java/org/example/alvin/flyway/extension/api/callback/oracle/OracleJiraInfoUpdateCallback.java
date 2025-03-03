@@ -1,5 +1,9 @@
-package org.example.alvin.flyway.extension.api.callback;
+package org.example.alvin.flyway.extension.api.callback.oracle;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.example.alvin.flyway.extension.api.exception.JiraInfoUpdateException;
 import org.example.alvin.flyway.extension.api.migration.JiraMigration;
@@ -8,22 +12,17 @@ import org.flywaydb.core.api.callback.BaseCallback;
 import org.flywaydb.core.api.callback.Context;
 import org.flywaydb.core.api.callback.Event;
 import org.flywaydb.core.api.configuration.Configuration;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Map;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@ConditionalOnClass(name = "com.microsoft.sqlserver.jdbc.SQLServerDriver")
+@ConditionalOnClass(name = "oracle.jdbc.driver.OracleDriver")
 @ConditionalOnProperty(name = "spring.flyway.extension.jira.enabled", havingValue = "true")
-public class MSSQLJiraInfoUpdateCallback extends BaseCallback {
+public class OracleJiraInfoUpdateCallback extends BaseCallback {
 
-  private static final String UPDATE_SQL = "UPDATE %s.%s.%s SET jira = ?, jira_sprint = ?, author = ? WHERE checksum = ?";
+  private static final String UPDATE_SQL = "UPDATE %s.%s SET jira = ?, jira_sprint = ?, author = ? WHERE checksum = ?";
 
   @Override
   public void handle(Event event, Context context) {
@@ -36,9 +35,8 @@ public class MSSQLJiraInfoUpdateCallback extends BaseCallback {
     Configuration configuration = context.getConfiguration();
     try {
       String catalog = connection.getCatalog();
-      String schema = connection.getSchema();
       String table = configuration.getTable();
-      String updateSql = String.format(UPDATE_SQL, catalog, schema, table);
+      String updateSql = String.format(UPDATE_SQL, catalog, table);
       PreparedStatement statement = connection.prepareStatement(updateSql);
       appliedMigrations.forEach((checksum, jiraMigration) -> {
         try {

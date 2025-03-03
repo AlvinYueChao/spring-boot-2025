@@ -1,4 +1,4 @@
-package org.example.alvin.flyway.extension.api.callback;
+package org.example.alvin.flyway.extension.api.callback.shared;
 
 import java.io.File;
 import lombok.extern.slf4j.Slf4j;

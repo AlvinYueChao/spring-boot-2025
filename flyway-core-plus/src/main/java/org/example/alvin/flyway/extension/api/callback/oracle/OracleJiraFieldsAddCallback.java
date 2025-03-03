@@ -1,4 +1,4 @@
-package org.example.alvin.flyway.extension.api.callback;
+package org.example.alvin.flyway.extension.api.callback.oracle;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@ConditionalOnClass(name = "com.microsoft.sqlserver.jdbc.SQLServerDriver")
+@ConditionalOnClass(name = "oracle.jdbc.driver.OracleDriver")
 @ConditionalOnProperty(name = "spring.flyway.extension.jira.enabled", havingValue = "true")
-public class MSSQLJiraFieldsAddCallback extends BaseCallback {
+public class OracleJiraFieldsAddCallback extends BaseCallback {
 
-  private static final String ADD_JIRA_FIELD_SQL_TEMPLATE = "ALTER TABLE %s.%s.%s ADD %s %s";
+  private static final String ADD_JIRA_FIELD_SQL_TEMPLATE = "ALTER TABLE %s.%s ADD %s %s";
   private static final String JIRA_FIELD_TYPE = "VARCHAR(30)";
 
   @Override
@@ -39,9 +39,9 @@ public class MSSQLJiraFieldsAddCallback extends BaseCallback {
       boolean authorFieldExists = authorFieldCheckResult != null && authorFieldCheckResult.next();
       if (!(jiraFieldExists || jiraSprintFieldExists || authorFieldExists)) {
         try (Statement statement = connection.createStatement()) {
-          statement.addBatch(String.format(ADD_JIRA_FIELD_SQL_TEMPLATE, catalog, schema, table, "jira", JIRA_FIELD_TYPE));
-          statement.addBatch(String.format(ADD_JIRA_FIELD_SQL_TEMPLATE, catalog, schema, table, "jira_sprint", JIRA_FIELD_TYPE));
-          statement.addBatch(String.format(ADD_JIRA_FIELD_SQL_TEMPLATE, catalog, schema, table, "author", JIRA_FIELD_TYPE));
+          statement.addBatch(String.format(ADD_JIRA_FIELD_SQL_TEMPLATE, catalog, table, "jira", JIRA_FIELD_TYPE));
+          statement.addBatch(String.format(ADD_JIRA_FIELD_SQL_TEMPLATE, catalog, table, "jira_sprint", JIRA_FIELD_TYPE));
+          statement.addBatch(String.format(ADD_JIRA_FIELD_SQL_TEMPLATE, catalog, table, "author", JIRA_FIELD_TYPE));
           statement.executeBatch();
         } catch (SQLException e) {
           throw new JiraFieldsAlterException(e);

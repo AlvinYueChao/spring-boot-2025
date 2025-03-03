@@ -1,4 +1,4 @@
-package org.example.alvin.flyway.extension.api.callback;
+package org.example.alvin.flyway.extension.api.callback.mysql;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-@ConditionalOnClass(name = "oracle.jdbc.driver.OracleDriver")
+@ConditionalOnClass(name = "com.mysql.cj.jdbc.Driver")
 @ConditionalOnProperty(name = "spring.flyway.extension.jira.enabled", havingValue = "true")
-public class OracleJiraFieldsAddCallback extends BaseCallback {
+public class MySQLJiraFieldsAddCallback extends BaseCallback {
 
-  private static final String ADD_JIRA_FIELD_SQL_TEMPLATE = "ALTER TABLE %s.%s ADD %s %s";
+  private static final String ADD_JIRA_FIELD_SQL_TEMPLATE = "ALTER TABLE `%s`.%s ADD %s %s";
   private static final String JIRA_FIELD_TYPE = "VARCHAR(30)";
 
   @Override

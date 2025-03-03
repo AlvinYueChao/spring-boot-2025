@@ -1,4 +1,4 @@
-package org.example.alvin.flyway.extension.api.callback;
+package org.example.alvin.flyway.extension.api.callback.mysql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
